@@ -14,9 +14,6 @@ func default_lifecycle(input : InputPackage):
 	if not humanoid.is_on_floor():
 		return "midair"
 	
-	# if too_sharp(input):
-	#    return "fuck you pivot for half a second"
-	
 	return best_input_that_can_be_paid(input)
 
 

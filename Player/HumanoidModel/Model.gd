@@ -40,6 +40,7 @@ func update(input : InputPackage, delta : float):
 func switch_to(state : String):
 	if not is_enemy:
 		print(current_move.move_name + " -> " + state)
+		
 	current_move.on_exit_state()
 	current_move = moves_container.moves[state]
 	current_move.on_enter_state()
