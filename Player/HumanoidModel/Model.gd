@@ -34,7 +34,7 @@ func update(input : InputPackage, delta : float):
 		switch_to(relevance)
 	#print(current_move.animation)
 	current_move.update_resources(delta)
-	current_move.update(input, delta)
+	current_move._update(input, delta)
 
 
 func switch_to(state : String):

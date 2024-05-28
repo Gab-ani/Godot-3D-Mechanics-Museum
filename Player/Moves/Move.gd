@@ -13,6 +13,7 @@ var container : HumanoidStates
 @export var move_name : String
 @export var priority : int
 @export var backend_animation : String
+@export var tracking_angular_speed : float = 10
 
 # I can tolerate up to two _costs, 
 # the moment I need a third one, I'll create a small ResourceCost class to pay them.
@@ -63,6 +64,20 @@ func best_input_that_can_be_paid(input : InputPackage) -> String:
 	return "throwing because for some reason input.actions doesn't contain even idle"  
 
 
+func _update(input : InputPackage, delta : float):
+	if tracks_input_vector():
+		process_input_vector(input, delta)
+	update(input, delta)
+
+func update(_input : InputPackage, _delta : float):
+	pass
+
+func process_input_vector(input : InputPackage, delta : float):
+	var input_direction = (humanoid.camera_mount.basis * Vector3(-input.input_direction.x, 0, -input.input_direction.y)).normalized()
+	var face_direction = humanoid.basis.z
+	var angle = face_direction.signed_angle_to(input_direction, Vector3.UP)
+	humanoid.rotate_y(clamp(angle, -tracking_angular_speed * delta, tracking_angular_speed * delta))
+
 func update_resources(delta : float):
 	resources.update(delta)
 
@@ -96,6 +111,12 @@ func transitions_to_queued() -> bool:
 func accepts_queueing() -> bool:
 	return moves_data_repo.get_accepts_queueing(backend_animation, get_progress())
 
+func tracks_input_vector() -> bool:
+	return moves_data_repo.tracks_input_vector(backend_animation, get_progress())
+
+func accepts_tracking_direction() -> bool:
+	return moves_data_repo.accepts_tracking_direction(backend_animation, get_progress())
+
 func is_vulnerable() -> bool:
 	return moves_data_repo.get_vulnerable(backend_animation, get_progress())
 
@@ -117,9 +138,6 @@ func default_lifecycle(input : InputPackage):
 		return best_input_that_can_be_paid(input)
 	return "okay"
 
-
-func update(_input : InputPackage, _delta : float):
-	pass
 
 func on_enter_state():
 	pass

@@ -4,7 +4,6 @@ class_name MovesDataRepository
 @onready var move_database = $MoveDatabase
 
 
-
 func get_root_delta_pos(animation : String, progress : float, delta : float) -> Vector3:
 	var data = move_database.get_animation(animation)
 	var track = data.find_track("MoveDatabase:root_position", Animation.TYPE_VALUE)
@@ -45,4 +44,14 @@ func get_duration(animation : String) -> float:
 func get_right_weapon_hurts(animation : String, timecode : float) -> bool:
 	var data = move_database.get_animation(animation)
 	var track = data.find_track("MoveDatabase:right_hand_weapon_hurts", Animation.TYPE_VALUE)
+	return move_database.get_boolean_value(animation, track, timecode)
+
+func tracks_input_vector(animation : String, timecode : float) -> bool:
+	var data = move_database.get_animation(animation)
+	var track = data.find_track("MoveDatabase:tracks_input_vector", Animation.TYPE_VALUE)
+	return move_database.get_boolean_value(animation, track, timecode)
+
+func accepts_tracking_direction(animation : String, timecode : float) -> bool:
+	var data = move_database.get_animation(animation)
+	var track = data.find_track("MoveDatabase:accepts_tracking_direction", Animation.TYPE_VALUE)
 	return move_database.get_boolean_value(animation, track, timecode)
