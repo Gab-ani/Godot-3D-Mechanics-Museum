@@ -1,1 +1,3 @@
 Mechanics Museum will be a little flexing project of mine, it will contain several features built on top of my 3d character controller architecture template.
+
+The third episode achieves much with low efforts. The changes are mostly refactoring of rotational inputs processing into a new defaults set in the base Move and moving part of the logic into a new backend animation track. This decision opens us the road to custom WASD processing implementation for any state while providing an automatic solution for unified processings. For example, directional input tracking for melee attacks to be able to redirect them after the animation started.
