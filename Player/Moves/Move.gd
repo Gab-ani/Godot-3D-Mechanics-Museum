@@ -65,6 +65,7 @@ func best_input_that_can_be_paid(input : InputPackage) -> String:
 
 
 func _update(input : InputPackage, delta : float):
+	update_resources(delta)
 	if tracks_input_vector():
 		process_input_vector(input, delta)
 	update(input, delta)
