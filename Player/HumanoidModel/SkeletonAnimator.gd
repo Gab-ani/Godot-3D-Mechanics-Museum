@@ -18,3 +18,6 @@ func configure_blending_times():
 	set_blend_time("longsword_1", "run", 0.3)
 	set_blend_time("longsword_1", "sprint", 0.3)
 	set_blend_time("longsword_1", "longsword_2", 0.3)
+	set_blend_time("idle_vom_tag", "greatsword_heavy_1_hackwork", 0.4)
+	set_blend_time("greatsword_heavy_1_hackwork", "greatsword_light_3_hackwork", 0.4)
+	set_blend_time("greatsword_light_3_hackwork", "greatsword_heavy_2_hackwork", 0.5)
