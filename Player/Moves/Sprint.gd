@@ -32,7 +32,7 @@ func update(input : InputPackage, delta : float):
 func rotate_velocity(input : InputPackage, delta : float):
 	var input_direction = (humanoid.camera_mount.basis * Vector3(-input.input_direction.x, 0, -input.input_direction.y)).normalized()
 	var face_direction = humanoid.basis.z
-	var angle = face_direction.signed_angle_to(input_direction, Vector3.UP)
+	var angle = face_direction.signed_angle_to(input_direction.slide(Vector3.UP), Vector3.UP) 
 	if abs(angle) >= ANGULAR_SPEED * delta:
 		humanoid.velocity = face_direction.rotated(Vector3.UP, sign(angle) * ANGULAR_SPEED * delta) * TURN_SPEED
 	else:
